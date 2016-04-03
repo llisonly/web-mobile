@@ -1,0 +1,207 @@
+/* 定位属性 */
+.pr{
+	position: relative;
+}
+.pa{
+	position: absolute;
+}
+
+/* 显示属性 */
+.dib{
+	display: inline-block;
+}
+.dn{
+	display: none;
+}
+
+/* init */
+html{
+	font-size: 62.5%;
+}
+html, body{
+	height: 100%;
+}
+img{
+	max-width: 100%;
+}
+
+/* loading */
+.loading{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+.spinner{
+	position: fiexed;
+	left: 50%;
+	top: 50%;
+	z-index: 999;
+	margin-left: -25px;
+	width: 50px;
+	height: 50px;
+	position: relative;
+	text-align: center;
+	-webkit-animation: rotate 2.0s infinite linear;
+	animation: rotate 2.0s infinite linear;
+}
+.dot1, .dot2{
+	position: absolute;
+	top: 0;
+	width: 40%;
+	height: 40%;
+	background-color: rgba(0,0,0,.4);
+	border-radius: 100%;
+	-webkit-animation: bounce 2.0s infinite ease-in-out;
+	animation: bounce 2.0s infinite ease-in-out;
+}
+.dot2{
+	top: auto;
+	bottom: 0;
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+}
+
+/* audio */
+.audio{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 7%;
+	height: 4%;
+	background-image: url('../image/audio_open.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: contain;
+}
+.audio--off{
+	background-image: url('../image/audio_close.png');
+}
+
+/* arrow */
+.arrow{
+	position: absolute;
+	z-index: 500;
+	width: 8%;
+	height: 5%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: contain;
+	opacity: 0;
+}
+.arrow--up{
+	left: 49%;
+	top: 0;
+	background-image: url('../image/arrow.png');
+	-webkit-animation: arrowUp 1.5s linear infinite;
+	animation: arrowUp 1.5s linear infinite;
+}
+
+/* container */
+.container{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: #000;
+}
+.container .page--cur{
+	display: block;
+}
+
+/* section */
+.section{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* page first */
+.page-first{
+	background-image: url('../image/bg1.jpg');
+}
+
+/* clock-box */
+.clock-box{
+	position: absolute;
+	left: 56%;
+	top: 19%;
+	width: 22%;	
+}
+.hour{
+	position: absolute;
+	left: 45%;
+	bottom: 46%;
+	width: 10%;
+	-webkit-animation: eyeRotate 4s linear infinite running;
+	-webkit-transform-origin: 50% 97%;
+	animation: eyeRotate 4s linear infinite running;
+	transform-origin: 50% 97%;
+}
+
+/* page second */
+.page-second{
+	background-image: url('../image/bg2.jpg');
+}
+
+/* plane-box */
+.plane-box{
+	position: absolute;
+	left: 33%;
+	top: 0;	
+	width: 33%;
+	height: 66%;
+	background: url('../image/people.png') no-repeat center top;
+	background-size: contain;
+	-webkit-animation: fly 2s linear;
+	animation: fly 2s linear;
+}
+
+.btn-buy{
+	position: absolute;
+	left: 37%;
+	top: 91%;
+	display: block;
+	padding: 5px 20px;
+	background: #3fb530;
+	border-radius: 35px;
+	font-size: 1.2rem;
+	color: #fff;
+}
+
+.btn-detail{
+	position: absolute;
+	right: -21%;
+	top: 48%;
+	z-index: 2;
+	width: 32%;
+	height: 12%;
+	background: url('../image/detail.png') no-repeat;
+	background-size: contain;
+}
+
+/* page chang */
+.downToUpOut{
+	-webkit-animation: downToUpOut .5s ease-in-out both;
+	animation: downToUpOut .5s ease-in-out both;
+}
+
+.downToUpIn{
+	-webkit-animation: downToUpIn .5s ease-in-out both;
+	animation: downToUpIn .5s ease-in-out both;
+}
+
+/* media */
+@media screen and (min-width: 540px){
+	.btn-buy{
+		font-size: 2.4rem;
+	}
+}

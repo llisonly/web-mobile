@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum=1,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>html5</title>
+	<link rel="stylesheet" href="static/css/core.css" />
+	<link rel="stylesheet" href="static/css/style.css" />
+	<link rel="stylesheet" href="static/css/animation.css" />
+</head>	
+<body>
+	<div id="J_container" class="container dn">
+		<section class="section page-first">
+			<div class="clock-box">
+				<img src="static/image/clock.png" />
+				<div class="hour">
+					<img src="static/image/hour.png" />
+				</div>
+			</div>			
+		</section>
+		<section class="section page-second">
+			<div class="plane-box animate dn"></div>
+			<a class="btn-buy view-detail" href="">查看详情</a>
+			<a class="btn-detail dn" href="javascript:;"></a>
+		</section>
+	</div>
+	<div id="J_pre-imgList" class="dn">
+		<img data-src="static/image/bg1.jpg" />
+		<img data-src="static/image/bg2.jpg" />
+		<img data-src="static/image/bg3.jpg" />
+		<img data-src="static/image/bg4.jpg" />
+		<img data-src="static/image/bg5.jpg" />
+	</div>
+	<div id="J_loading" class="loading">
+		<div class="spinner">
+			<div class="dot1"></div>
+			<div class="dot2"></div>
+		</div>
+	</div>
+	<div class="audio audio--on"></div>
+	<div class="arrow arrow--up"></div>
+
+	<script src="static/js/lib/zepto/zepto.js"></script>
+	<script>
+		window.Media = {};
+
+		var $pages = $('#J_container > .section'),
+			pagesLength = $pages.length,
+			pageIndex = 0,
+			pageAnimationFlag = false;
+
+		function preLoadImg(){
+			var $preImages = $('#J_pre-imgList img'),
+				len = $preImages.length,
+				i = 0;
+
+			$preImages.each(function(index, ele){
+				var oImg = new Image();
+				oImg.src = $(ele).data('src');
+				oImg.onload = function(){
+					i++;
+					if(i > 1){
+						$('#J_loading').hide();
+						$('#J_container').show();
+					}
+				};
+			});
+		}
+
+		function isAnimate(obj){
+			var $animateElement = obj.find('.animate');
+			if($animateElement.length){
+				$animateElement.show();
+			}
+		}
+
+		function saveClass(){
+			$pages.each(function(index, ele){
+				var $this = $(this);
+				$this.attr('data', $this.attr('class'));
+			});
+		}
+
+		Media.audio = function(options){
+			var oAudio = new Audio(),
+				$target = $(options.target).eq(0);
+
+			$.extend(oAudio, options);
+
+			Media.audio = oAudio;
+
+			$(document).one('touchstart', function(e){
+				Media.audio.load();
+				if($target.hasClass('audio--on')) Media.audio.play();
+				e.preventDefault();
+			});
+
+			$target.on('touchstart', function(){				
+				if($target.hasClass('audio--on')){
+					Media.audio.pause();
+					$target.addClass('audio--off').removeClass('audio--on');
+				}else{
+					Media.audio.play();
+					$target.addClass('audio--on').removeClass('audio--off');
+				}
+			});
+		};
+
+		Media.audio({
+			target: '.audio',
+			src: 'static/image/test.mp3',
+			preload: 'auto',
+			loop: true,
+			autoPlay: true
+		});
+
+		$(function(){
+			preLoadImg();
+			saveClass();
+
+			document.addEventListener('touchmove', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			}, false);
+
+			$pages.eq(0).addClass('page--cur');
+
+			$.each($pages, function(index, ele){
+				var $this = $(this);
+
+				$this[0].addEventListener('webkitAnimationEnd', function(){
+					if(index == pageIndex){
+						$(this).attr('class', 'page--cur ' + $this.attr('data'));
+					}else{
+						$(this).attr('class', $this.attr('data'));
+					}
+					pageAnimationFlag = false;
+				}, false);
+			});
+
+			$(document).swipeUp(function(){
+				if(!pageAnimationFlag){
+					$pages.eq(pageIndex).addClass('downToUpOut');
+					pageIndex = pageIndex < pagesLength - 1 ? pageIndex + 1 : 0;
+					$pages.eq(pageIndex).addClass('page--cur downToUpIn');
+					pageAnimationFlag = true;
+				}
+				isAnimate($pages.eq(pageIndex));
+			})
+		});
+	</script>
+</body>
+</html>
+		
